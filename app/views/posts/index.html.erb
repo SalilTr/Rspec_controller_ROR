@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #page-container {
+      border: 2px solid #ccc;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+   
+<div id="page-container">
+  <h1>Posts</h1>
+
+  <ul>
+    <%= link_to 'New Post', new_post_path %>
+
+    <% @posts.each do |post| %>
+      <li>
+        <%= post.title %><br>
+        <% if post.image.present? %>
+          <%= image_tag post.image, alt: 'Post Image', style: 'width: 200px; height: 200px;' %><br>
+        <% end %>
+        <%= post.content %><br>
+        <%= link_to 'Edit', edit_post_path(post) %>
+
+        <% post.comments.each do |comment| %>
+          <h4>========comments=========</h4>
+          <%= link_to 'Edit Comment', edit_comment_path(comment) %>
+          <%= comment.description %><br>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<% if user_signed_in? %> 
+<div> Welcome <%= current_user.email %> </div> 
+ <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+ <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
+</body>
+</html>

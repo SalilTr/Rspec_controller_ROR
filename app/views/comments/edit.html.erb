@@ -1,0 +1,12 @@
+<h1>Edit Comment</h1>
+
+<%= form_for @comment do |f| %>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <%= f.submit 'Update Comment' %>
+<% end %>
+
+
